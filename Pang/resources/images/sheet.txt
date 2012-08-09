@@ -1,0 +1,11 @@
+black_a = 0 0 94 100
+black_b = 95 0 94 100
+black_C = 0 101 94 100
+black_d = 95 101 94 100
+black_left_a = 190 0 94 100
+black_left_b = 285 0 94 100
+black_right_a = 190 101 94 100
+black_right_b = 285 101 94 100
+bullet = 380 58 8 21
+enemy_1 = 380 0 40 57
+enemy_2 = 421 0 40 57
