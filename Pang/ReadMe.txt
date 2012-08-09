@@ -4,7 +4,7 @@
   Author
   ------
 
-  Not Space Invaders is 
+  Not Space Invaders is created by Dylan Wragge
 
   What is it?
   -----------
