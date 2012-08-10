@@ -14,8 +14,8 @@
 		421AE70015D4C727001711A7 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 421AE6F915D4C727001711A7 /* background.png */; };
 		421AE70115D4C727001711A7 /* sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 421AE6FA15D4C727001711A7 /* sheet.png */; };
 		421AE70215D4C727001711A7 /* sheet.txt in Resources */ = {isa = PBXBuildFile; fileRef = 421AE6FB15D4C727001711A7 /* sheet.txt */; };
+		421AE70C15D4D4C8001711A7 /* Pang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421AE70B15D4D4C8001711A7 /* Pang.cpp */; };
 		42976C5215D4C5C8003AC95C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42976C5115D4C5C8003AC95C /* Foundation.framework */; };
-		42976C5515D4C5C8003AC95C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42976C5415D4C5C8003AC95C /* main.cpp */; };
 		42976C5715D4C5C8003AC95C /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42976C5615D4C5C8003AC95C /* ResourcePath.mm */; };
 		42976C6415D4C5C8003AC95C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42976C6215D4C5C8003AC95C /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -28,10 +28,10 @@
 		421AE6F915D4C727001711A7 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		421AE6FA15D4C727001711A7 /* sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet.png; sourceTree = "<group>"; };
 		421AE6FB15D4C727001711A7 /* sheet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sheet.txt; sourceTree = "<group>"; };
-		421AE70415D4C768001711A7 /* header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = header.h; path = ../header.h; sourceTree = "<group>"; };
+		421AE70A15D4D4C8001711A7 /* header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = header.h; path = src/header.h; sourceTree = SOURCE_ROOT; };
+		421AE70B15D4D4C8001711A7 /* Pang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pang.cpp; path = src/Pang.cpp; sourceTree = SOURCE_ROOT; };
 		42976C4D15D4C5C8003AC95C /* Pang MacOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pang MacOSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42976C5115D4C5C8003AC95C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		42976C5415D4C5C8003AC95C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		42976C5615D4C5C8003AC95C /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		42976C5815D4C5C8003AC95C /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		42976C6115D4C5C8003AC95C /* Pang MacOSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pang MacOSX-Info.plist"; sourceTree = "<group>"; };
@@ -108,8 +108,8 @@
 		42976C5315D4C5C8003AC95C /* Pang MacOSX */ = {
 			isa = PBXGroup;
 			children = (
-				421AE70415D4C768001711A7 /* header.h */,
-				42976C5415D4C5C8003AC95C /* main.cpp */,
+				421AE70A15D4D4C8001711A7 /* header.h */,
+				421AE70B15D4D4C8001711A7 /* Pang.cpp */,
 				42976C5615D4C5C8003AC95C /* ResourcePath.mm */,
 				42976C5815D4C5C8003AC95C /* ResourcePath.hpp */,
 				42976C5915D4C5C8003AC95C /* Resources */,
@@ -220,8 +220,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42976C5515D4C5C8003AC95C /* main.cpp in Sources */,
 				42976C5715D4C5C8003AC95C /* ResourcePath.mm in Sources */,
+				421AE70C15D4D4C8001711A7 /* Pang.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

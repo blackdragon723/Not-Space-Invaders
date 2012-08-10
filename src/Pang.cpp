@@ -3,11 +3,6 @@
 
 #define NOMINMAX
 #include "header.h"
-#include <Windows.h>
-#include <list>
-#include <boost/random.hpp>
-#include <ctime>
-#include <boost/shared_ptr.hpp>
 
 class Player;
 class Bullet;
@@ -23,7 +18,7 @@ class Bullet
 {
 private:
 	sf::Sprite bulletSprite;
-	static UINT damage;
+	static unsigned int damage;
 	float speed;
 	sf::Vector2f position;
 public:
@@ -46,11 +41,11 @@ public:
 	{
 		rw.draw(bulletSprite);
 	}
-
+    
 	sf::Sprite getSprite() const { return bulletSprite; }
-	static UINT getDamage() { return damage; }
+	static unsigned int getDamage() { return damage; }
 };
-UINT Bullet::damage = 20;
+unsigned int Bullet::damage = 20;
 
 class HealthBar
 {
@@ -61,7 +56,7 @@ private:
 	float height;
 public:
 	HealthBar(float width, float height)
-		:width(width), height(height)
+    :width(width), height(height)
 	{
 		barBg.setSize(sf::Vector2f(width, height));
 		barBg.setFillColor(sf::Color(sf::Color::White));
@@ -69,7 +64,7 @@ public:
 		bar.setFillColor(sf::Color::Red);
 	}
 	HealthBar(float width, float height, float x, float y)
-		:width(width), height(height)
+    :width(width), height(height)
 	{
 		barBg.setSize(sf::Vector2f(width, height));
 		barBg.setFillColor(sf::Color(sf::Color::White));
@@ -103,8 +98,8 @@ public:
 class Enemy
 {
 private:
-	UINT health;
-	UINT maxHealth;
+	unsigned int health;
+	unsigned int maxHealth;
 	sf::Sprite sprite;
 	float width, height;
 	int vel;
@@ -112,7 +107,7 @@ private:
 public:
 	HealthBar healthBar;
 	Enemy(float x, float y)
-		:healthBar(75, 10)
+    :healthBar(75, 10)
 	{
 		sprite.setTexture(spriteSheet);
 		sprite.setTextureRect(getRandomSprite());
@@ -124,9 +119,9 @@ public:
 		healthBar.attach(&sprite);
 		vel = 1;
 	}
-
+    
 	Enemy(const std::vector<enemy_ptr>& vec)
-		:healthBar(75, 10)
+    :healthBar(75, 10)
 	{
 		sprite.setTexture(spriteSheet);
 		sprite.setTextureRect(getRandomSprite());
@@ -139,19 +134,19 @@ public:
 		vel = 1;
 	}
 	~Enemy() { }
-
+    
 	sf::IntRect getRandomSprite()
 	{
 		boost::random::uniform_int_distribution<> dist(1, 2);
 		int genNum = dist(rngEng);
 		switch (genNum)
 		{
-		case 1: return sf::IntRect(380, 0, 40, 57);
-		case 2: return sf::IntRect(421, 0, 40, 57);
-		default: return sf::IntRect(0, 0, 0, 0);
+            case 1: return sf::IntRect(380, 0, 40, 57);
+            case 2: return sf::IntRect(421, 0, 40, 57);
+            default: return sf::IntRect(0, 0, 0, 0);
 		}
 	}
-
+    
 	sf::Vector2f getRandomSpawn(const std::vector<enemy_ptr>& vec)
 	{
 		boost::random::uniform_int_distribution<> dist(20, 1260);
@@ -171,31 +166,31 @@ public:
 			return sf::Vector2f((float)genPosX, -10.f);
 		}
 	}
-
+    
 	void update()
 	{
 		this->sprite.move(0, (float)vel);
 		healthBar.update(&this->sprite, (float)maxHealth, (float)health);
 	}
-
+    
 	void render(sf::RenderWindow& rw)
 	{
 		rw.draw(sprite);
 		healthBar.render(rw);
 	}
-
-	UINT getHealth() { return health; }
-
+    
+	unsigned int getHealth() { return health; }
+    
 	const sf::Sprite& getSprite() { return sprite; }	 
-	UINT getHealth() const { return health; }
-	void damageEnemy(UINT delta) { health -= delta; std::cout << "Health: " << health << std::endl; }
+	unsigned int getHealth() const { return health; }
+	void damageEnemy(unsigned int delta) { health -= delta; std::cout << "Health: " << health << std::endl; }
 	bool checkCollision(sf::Vector2f c)
 	{
 		if (sprite.getGlobalBounds().contains(c))
 			return true;
 		else return false;
 	}
-
+    
 	bool checkCollision(std::list<Bullet>& list)
 	{
 		for (std::list<Bullet>::iterator iter = list.begin(); iter != list.end();)
@@ -217,35 +212,35 @@ class Player
 {
 private:
 	/*
-	SPRITES:
-	0: default
-	1: left_a
-	2: left_b
-	3: right_a
-	4: right_b
-	*/
+     SPRITES:
+     0: default
+     1: left_a
+     2: left_b
+     3: right_a
+     4: right_b
+     */
 	sf::Sprite playerShip[8];
-
+    
 	bool isAlive;
-	UINT lives;
-	UINT hp;
-	UINT missiles; //NI
-
-	UINT frame;
+	unsigned int lives;
+	unsigned int hp;
+	unsigned int missiles; //NI
+    
+	unsigned int frame;
 	sf::Vector2f position;
 	const float speed;
-
+    
 	DIRECTION playerDirection;
-
+    
 	std::list<Bullet> playersBullets;
-
+    
 	//Clock to regulate the firing of bullets
 	sf::Clock bulletClock;
-
+    
 	HealthBar playerHealthBar;
 public:
 	Player()
-		:speed(7.75f), playerHealthBar(150.f, 50.f, 20, 650)
+    :speed(7.75f), playerHealthBar(150.f, 50.f, 20, 650)
 	{
 		isAlive = true;
 		lives = 3;
@@ -262,7 +257,7 @@ public:
 		{
 			playerShip[i].setTexture(spriteSheet);
 		}
-
+        
 		playerShip[0].setTextureRect(sf::IntRect(0, 0, 94, 100));
 		playerShip[1].setTextureRect(sf::IntRect(190, 0, 94, 100));
 		playerShip[2].setTextureRect(sf::IntRect(285, 0, 94, 100));
@@ -271,7 +266,7 @@ public:
 		playerShip[5].setTextureRect(sf::IntRect(95, 0, 94, 100));
 		playerShip[6].setTextureRect(sf::IntRect(0, 101, 94, 100));
 		playerShip[7].setTextureRect(sf::IntRect(95, 101, 94, 100));
-
+        
 		for (int i = 0; i < sizeof(playerShip) / sizeof(playerShip[0]); i++)
 		{
 			playerShip[i].setOrigin(playerShip[i].getLocalBounds().width / 2, playerShip[i].getLocalBounds().height / 2);
@@ -282,43 +277,43 @@ public:
 	{
 		switch (playerDirection)
 		{
-		case STATIONARY:
-			break;
-		case TRANSITION_TO_STATIONARY:
-			switch (frame)
+            case STATIONARY:
+                break;
+            case TRANSITION_TO_STATIONARY:
+                switch (frame)
 			{
-			case 1: frame = 5; playerDirection = STATIONARY; break;
-			case 2: frame = 1; break;
-			case 3: frame = 5; playerDirection = STATIONARY; break;
-			case 4: frame = 3; break;
+                case 1: frame = 5; playerDirection = STATIONARY; break;
+                case 2: frame = 1; break;
+                case 3: frame = 5; playerDirection = STATIONARY; break;
+                case 4: frame = 3; break;
 			}
-			break;
-		case UP: 
-			//NI
-			break;
-		case DOWN:
-			//NI
-			break;
-		case LEFT:
-			if (frame == 0)
-				frame = 1;
+                break;
+            case UP: 
+                //NI
+                break;
+            case DOWN:
+                //NI
+                break;
+            case LEFT:
+                if (frame == 0)
+                    frame = 1;
 				frame = 2;
-			move(-speed, 0);
-			break;
-		case RIGHT:
-			if (frame == 0)
-			{
-				frame = 3;
-				break;
-			}
-			frame++;
-			if (frame > 4)
-				frame = 4;
-			move(speed, 0);
-			break;
+                move(-speed, 0);
+                break;
+            case RIGHT:
+                if (frame == 0)
+                {
+                    frame = 3;
+                    break;
+                }
+                frame++;
+                if (frame > 4)
+                    frame = 4;
+                move(speed, 0);
+                break;
 		}
 		playerShip[frame].setPosition(position);
-
+        
 		if (!playersBullets.empty())
 		{
 			for (std::list<Bullet>::iterator iter = playersBullets.begin(); iter != playersBullets.end();)
@@ -339,7 +334,7 @@ public:
 			}
 		}
 	}
-
+    
 	void render(sf::RenderWindow& rw)
 	{
 		rw.draw(playerShip[frame]);
@@ -349,13 +344,13 @@ public:
 		}
 		playerHealthBar.render(rw);
 	}
-
+    
 	void kill()
 	{
 		isAlive = false;
 		lives--;
 	}
-
+    
 	void fireBullet()
 	{
 		//If it has been less than 250ms since the last bullet was fired return
@@ -365,9 +360,9 @@ public:
 		Bullet b(playerShip[frame].getPosition().x, playerShip[frame].getPosition().y - 50);
 		playersBullets.push_back(b);
 	}
-
+    
 	std::list<Bullet>& getBulletList() { return playersBullets; }
-
+    
 	bool checkCollision(sf::Vector2f c)
 	{
 		if (playerShip[frame].getGlobalBounds().contains(c))
@@ -380,26 +375,26 @@ public:
 		position.y += y;
 		if (position.x  - 47 < 0)
 			position.x = 47;
-
+        
 		if (position.x + 47 > 1280)
 			position.x = 1280 - 47;
-
+        
 		if (position.y - 47 < 0)
 			position.y = 47;
-
+        
 		if (position.y + 47 > 720)
 			position.y = 720 - 47;
 	}
-
-	UINT getHp() const { return hp; }
-	UINT getLives() const { return lives; }
-	UINT getMissiles() const { return missiles; }
-	UINT getFrame() const { return frame; }
+    
+	unsigned int getHp() const { return hp; }
+	unsigned int getLives() const { return lives; }
+	unsigned int getMissiles() const { return missiles; }
+	unsigned int getFrame() const { return frame; }
 	float getSpeed() const { return speed; }
-
-	void setHp(UINT hp) { this->hp = hp; }
-	void setLives(UINT hp) { this->lives = hp; }
-	void setMissiles(UINT hp) { this->missiles = hp; }
+    
+	void setHp(unsigned int hp) { this->hp = hp; }
+	void setLives(unsigned int hp) { this->lives = hp; }
+	void setMissiles(unsigned int hp) { this->missiles = hp; }
 	void setDirection(DIRECTION d) { playerDirection = d; }
 };
 
@@ -410,32 +405,36 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
 int main(int argc, char **argv)
 #endif
 {
-//------------------------------Various Initialisations-----------------------------
+    //------------------------------Various Initialisations-----------------------------
 	sf::RenderWindow rw(sf::VideoMode(1280,720), "Not Space Invaders");
 	rw.setVerticalSyncEnabled(true);
 	sf::Event event;
 	Player player;
 	std::vector<enemy_ptr> enemyVec; //A vector of smart pointers. Each enemy spawned goes in here
 	sf::Clock spawnClock;
-	if (spriteSheet.loadFromFile("resources/images/sheet.png") == false)
+	if (spriteSheet.loadFromFile(SPRITEPATH) == false)
 	{
+#if defined _WIN32
 		MessageBoxA(NULL, "Could not open file: \"resources/images/sheet.png\"", "Error Opening File", MB_ICONERROR | MB_OK);
+#endif
 		return 1;
 	}
 	player.init(); //Must init player after loading sprites
 	rngEng.seed((unsigned int)std::time(0)); //Seed the RNG engine with the current time
 	sf::Font font;
-	if (font.loadFromFile("resources/fonts/Opificio_rounded.ttf") == false)
+	if (font.loadFromFile(FONTPATH) == false)
 	{
+#if defined _WIN32
 		MessageBoxA(NULL, "Could not open file: \"resources/fonts/Opificio_rounded.ttf\"", "Error Opening File", MB_ICONERROR | MB_OK);
+#endif
 		return 1;
 	}
-//----------------------------------------------------------------------------------
-//-------------------------Game Help------------------------------------------------
+    //----------------------------------------------------------------------------------
+    //-------------------------Game Help------------------------------------------------
 	sf::Text readyPlayText("Arrow Keys to Move\nSpace to Shoot\nPress Enter to Begin", font, 72);
 	readyPlayText.setOrigin(readyPlayText.getLocalBounds().width / 2, readyPlayText.getLocalBounds().height / 2);
 	readyPlayText.setPosition(640, 360);
-
+    
 	rw.clear(sf::Color::Black);
 	rw.draw(readyPlayText);
 	rw.display();
@@ -448,17 +447,17 @@ int main(int argc, char **argv)
 			if (event.type == sf::Event::Closed) return 0;
 		}
 	}
-//----------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
 	spawnClock.restart(); //Start clock just before entering the loop
 	while (rw.isOpen())
 	{
-//---------------------HANDLE EVENTS-------------------------------
+        //---------------------HANDLE EVENTS-------------------------------
 		while (rw.pollEvent(event))
 		{
 			switch (event.type)
 			{
-			case sf::Event::Closed: return 0; break;
-			case sf::Event::KeyPressed:
+                case sf::Event::Closed: return 0; break;
+                case sf::Event::KeyPressed:
 				{
 					if (event.key.code == sf::Keyboard::Escape) return 0;
 					if (event.key.code == sf::Keyboard::Left)
@@ -474,14 +473,14 @@ int main(int argc, char **argv)
 						player.fireBullet();
 					}
 				}
-				break;
-			case sf::Event::KeyReleased: 
-				if (event.key.code == sf::Keyboard::Left || event.key.code == sf::Keyboard::Right)
-					player.setDirection(TRANSITION_TO_STATIONARY); break;
+                    break;
+                case sf::Event::KeyReleased: 
+                    if (event.key.code == sf::Keyboard::Left || event.key.code == sf::Keyboard::Right)
+                        player.setDirection(TRANSITION_TO_STATIONARY); break;
 			}
 		}
-//----------------------------------------------------------------------------------------------------
-//--------------------UPDATE-------------
+        //----------------------------------------------------------------------------------------------------
+        //--------------------UPDATE-------------
 		//Time related stuff
 		//If it has been 1.5s since last spawn of enemy
 		if (spawnClock.getElapsedTime().asMilliseconds() >= 3000)
@@ -490,7 +489,7 @@ int main(int argc, char **argv)
 			enemyVec.push_back(temp);
 			spawnClock.restart();
 		}
-
+        
 		//Check all collisions
 		for (std::vector<enemy_ptr>::iterator iter = enemyVec.begin(); iter != enemyVec.end(); iter++)
 		{
@@ -499,7 +498,7 @@ int main(int argc, char **argv)
 				(*iter)->damageEnemy(Bullet::getDamage());
 			}
 		}
-
+        
 		//Check health of anything
 		//Enemies
 		for (std::vector<enemy_ptr>::iterator iter = enemyVec.begin(); iter != enemyVec.end();)
@@ -512,15 +511,15 @@ int main(int argc, char **argv)
 			else
 				++iter;
 		}
-
+        
 		//Finally Update everything
 		player.update();
 		for (std::vector<enemy_ptr>::iterator iter = enemyVec.begin(); iter != enemyVec.end(); iter++)
 		{
 			(*iter)->update();
 		}
-//----------------------------------------------------------------------------------------------------
-//-----------------RENDERING-----------------------------------------
+        //----------------------------------------------------------------------------------------------------
+        //-----------------RENDERING-----------------------------------------
 		rw.clear();
 		player.render(rw);
 		for (std::vector<enemy_ptr>::iterator iter = enemyVec.begin(); iter != enemyVec.end(); iter++)
@@ -528,7 +527,7 @@ int main(int argc, char **argv)
 			(*iter)->render(rw);
 		}
 		rw.display();
-//-------------------------------------------------------------------
+        //-------------------------------------------------------------------
 	}
 	return EXIT_SUCCESS;
 }
