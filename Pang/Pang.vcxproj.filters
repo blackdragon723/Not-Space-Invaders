@@ -25,13 +25,13 @@
     <None Include="resources\fonts\Opificio_rounded.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Pang.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\header.h">
+    <ClInclude Include="..\src\header.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Pang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
