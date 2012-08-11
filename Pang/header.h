@@ -35,5 +35,7 @@
 #include <tchar.h>
 #endif
 
+#include "globals.h"
+
 // TODO: reference additional headers your program requires here
 

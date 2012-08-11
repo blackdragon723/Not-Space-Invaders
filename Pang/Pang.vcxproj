@@ -89,10 +89,19 @@
     <None Include="resources\images\sheet.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\header.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="header.h" />
+    <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Pang.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="Pang.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
